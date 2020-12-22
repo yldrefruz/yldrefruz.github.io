@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>windows-64bit-paketleme</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="paketlemewindows-64bit">Paketleme(windows-64bit)</h2>
+<p>Bir oyunun en önemli özelliği nedir? Tebrikler doğru bildiniz herkesin çalıştırılabilir(.exe) dosyayı açabilmesi(Tabi oyunun kendisi de açılmalı)bu yazımda size projenizi nasıl paketleyeceğinizi en ince detaylarına kadar anlatmaya çalışacağım. Hadi o zaman basitten komplekse olan yolculuğumuz başlasın.</p>
+<p><strong>Basit Paketleme</strong><br>
+Şimdi bir oyunun paketlenmesinde en önemli durumlardan birisi onun nasıl paketleneceğidir ne için paketleyeceğinizdir. Oyun paketlenirken Blueprint projesinde 4, C++(Kod içeren proje) projesinde 5 seçenek vardır</p>
+<ul>
+<li>Debug: Bu klasik hata ayıklama seçeneğidir. Oyunun editördeki gibi (hata ayıklama mesajları vb.) gözükmesini sağlar.</li>
+<li>Debug Game: Bu hata ayıklama modu sadece C++(kod içeren proje) projesinde geçerlidir. Bu oyunun hata ayıklamasını yapmanızı sağlar.</li>
+<li>Development: Hem hata ayıklama hem de yüksek performans istiyorsanız bunu seçmelisiniz.</li>
+<li>Test: Bu insanların oyununuzu test etmesini istediğinizde onların oynaması gereken oyun türüdür.</li>
+<li>Shipping: Hata ayıklamak istemiyorsanız ve oyununuzu herhangi bir Platformda(steam,playstore) yayınlamak istiyorsanız bunu seçin.</li>
+</ul>
+<p>Şimdi bu seçeneklerden istediğimizi ayarladık sırada ne var? Sırada tabi ki de oyunun hangi haritadan başlayacağını seçmek var.</p>
+<p><img src="https://yldrefruz.github.io/UnrealEngine/Packaging/resimler/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20(19).png" alt="Paketleme Ayarları Açılışı"><br>
+<img src="https://yldrefruz.github.io/UnrealEngine/Packaging/resimler/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20(20).png" alt="Harita Seçim Menüsünü Açmak"><br>
+<img src="https://yldrefruz.github.io/UnrealEngine/Packaging/resimler/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20(21).png" alt="Harita Seçim Menüsü"></p>
+<p>Burada oyuncunun hangi haritada başlayacağını seçiyoruz. Burayı boş bırakırsanız Unreal Engine oyununuzun crash vermemesi için Unreal Engine’nin içinde gömülü olan “Empty”(Boş) haritaya yönlendirir ve sonuç olarak siyah bir harita çıkar.</p>
+<p><img src="https://yldrefruz.github.io/UnrealEngine/Packaging/resimler/Ekran%20G%C3%B6r%C3%BCnt%C3%BCs%C3%BC%20(22).png" alt="Paketleme"></p>
+<p>Burada gördüğünüz gibi çileniz burada sona eriyor(tabi daha içeriklerin sıkıştırılması var.) Bu aşamadn sonra her zamanki gibi projeyi nereye sıkıştıracağını soracak Gerisi size kalmış.</p>
+<p><strong>Komplex Paketleme(windows-64bit)</strong></p>
+<p>Şimdi burayı yukarıdaki kısımları okuduğunuzu varsayarak yazacağım.</p>
+<p>Bu kısımda paketleme kısmında yer alan ayarlardan bahsedeceğim.</p>
+<p>Yukarıdaki kısımlarda buraya nasıl gireceğinizi gördünüz. Burdaki ayarlar şöyle açıklanabilir.</p>
+<ul>
+<li>Build Configuration: Yukarıdaki bilgilerde burayla alakalı bilgi verildi.</li>
+<li>Staging Directory: Bu oyunu paketleyeceğiniz konumdur.</li>
+<li>Full Rebuild: Bu oyunun tüm kodlarının tekrar derlenip derlenmeyeceğini belirlediğiniz kısımdır.</li>
+<li>Use Pakfile: Bu tüm dosyalar .pak dosyası içine mi yoksa ayrı ayrı dosayalar olarak(Bildiğiniz projeyi içine atıyor) mı atacağını soruyor. Eğer çok fazla dosyanız varsa bunu açmanızı kesinlikle öneririm.</li>
+<li>Generate Chunks: Bu, pak dosyalarını farklı farklı parçalar halinde mi yazacağınızı belirlediğiniz kısım. İncelemelerime göre çoğu ünlü oyun bu paketleme yöntemini açık tutuyor( Örnek vermek gerekirse: PUBG, VALORANT, Dead by Daylight vb.). Ben de bu seçeneği açmanızı öneririm çünkü bu dosyaları ayrı ayrı yaparsanız (Steamda kendisi zaten chunklara bölüyor). güncelleme boyutları daha az olacaktır.</li>
+<li>Build HTTP Chunk Data: Bu verileri bir sunucuya yükleyerek Runtime(Çalışma zamanı)'da güncelleme yapmanıza olanak sağlar.</li>
+<li>HTTP Chunk Install Data Directory: Bu HTTP verilerin nereye yükleyeceğinizi seçmeye yarar.</li>
+<li>HTTP Chunk Install Data Verion: Bu HTTP Chunk verilerinin versiyon bilgisidir.</li>
+<li>Include Prerequisites Installer: Bu oyunun açılması için gereken DirectX Vb. paketleri içeren bir önyükleme paketidir. Bunu Steam dışı bir platforma yayınlıyorsanız açmanızı öneririm.</li>
+</ul>
+<p><strong>İşaretleme Ve Şifreleme</strong><br>
+Bu projeyi yayınlamak istediğiniz zaman genellikle yapmanız gereken şeydir. Bir pak dosyası varsayılan olarak şifrelenir. Ama siz bu şifrelemeyi genişletebilir veya kapatabilirsiniz size kalmış.</p>
+<p>Şimdi bu menüye nasıl erişeceğiz? Sol taraftaki Crypto menüsünü bulup üstüne tıklamanız yeterli.</p>
+<p>Bu menüdeki seçenekleri açıklamak gerekirse:</p>
+<ol>
+<li>Encrypt pak ini files : Tüm .ini dosyalarını .pak dosyalarının içine işler. Bu bazı basit oyun ayarı değişiklerini önler(Mesela optimizasyondan dolayı yüksek ayarı menü de göstermediniz) .</li>
+<li>Encrypt pak Index: Bu .pak dosyalarını dışarıdan açılmasını engeller.</li>
+<li>Encrypt UAsset Files: .Uasset dosyalarını .pak dosyasının içine şifreler. Bu dosyalar içeriklerinizi değil ama içeriklerinizi ile alakalı bazı bilgiler taşır.Bunu açmak çalışma zamanında(Runtime)da bazı sıkıntılara sebep olabilir.</li>
+<li>Encrypt Assets: Bu tüm dosyaları .pak dosyasının içine şifreler.<br>
+Not:Bu dosyaları I/O(In/Out,  Giriş / Çıkış) performasını <a href="http://etkiler.Ve">etkiler.Ve</a> güncelleme boyutlarının artmasına sebep olabilir.</li>
+<li>Enable pak Signing: Bu yukarıdakilerin hepsini kontrol eder bu kapalı olduğu zaman yukarıdakilerin hiçbiri işleme sokulmaz.<br>
+<strong>İçerikleri Cooklamak</strong><br>
+Bu sıkıştırmayı beklemeye dayanamadığınız zaman her şeyi sadece paketler. Bunu çok fazla kullanmadığım için bu konu hakkında pek fazla bilgi sahibi değilim daha fazla bilgi için unreal engine’nin dokümentasyonlarına bakabilirsiniz.</li>
+</ol>
+<p><strong>Platformlara Yönelik Önerilerim</strong></p>
+<ol>
+<li>Playstation 4/5: Burada .pak dosyalarını sıkıştırmamalısınız çünkü playstation upload işleminde dosyaları sıkıştırır. Eğer daha oyununuzun yüklenme sürelerinin hızlı olmasını istiyorsanız .pak dosyalarını sıkıştırmamalısınız. Ayrıca .pak dosyalarını şifrelemenize gerek yoktur. Çünkü playstation’da Crack olayları son zamanlarda yok denecek kadar azdır.</li>
+<li>XBOX: Playstation için söylediklerimin aynısı burada da geçerli</li>
+<li>Steam: Steam çoğu platformun aksine uygulamaları indirirken sıkıştırır. Bu yüzden .pak dosyalarını sıkıştırmanıza gerek yoktur.</li>
+</ol>
+<p>NOT: .pak dosylarını packaging bölümünü genişleterek bulabilirsiniz(Create compressed cooked packages diye geçiyor)</p>
+</div>
+</body>
+
+</html>
